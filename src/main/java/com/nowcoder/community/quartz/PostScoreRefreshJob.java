@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// 帖子分数刷新的定时任务
 public class PostScoreRefreshJob implements Job, CommunityConstant {
 
     private static final Logger logger = LoggerFactory.getLogger(PostScoreRefreshJob.class);
@@ -46,6 +47,7 @@ public class PostScoreRefreshJob implements Job, CommunityConstant {
         }
     }
 
+    // 定时任务的代码核心逻辑
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         String redisKey = RedisKeyUtil.getPostScoreKey();
@@ -63,6 +65,7 @@ public class PostScoreRefreshJob implements Job, CommunityConstant {
         logger.info("[任务结束] 帖子分数刷新完毕!");
     }
 
+    // 刷新一个帖子分数的方法
     private void refresh(int postId) {
         DiscussPost post = discussPostService.findDiscussPostById(postId);
 
